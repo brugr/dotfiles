@@ -1,0 +1,61 @@
+# Enable Powerlevel10k instant prompt.
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+fi
+
+# Load Znap
+# Download Znap if not found
+[[ -f $ZDOTDIR/plugins/zsh-snap/znap.zsh ]] ||
+    git clone --depth 1 -- \
+        https://github.com/marlonrichert/zsh-snap.git $ZDOTDIR/plugins/zsh-snap
+
+source $ZDOTDIR/plugins/zsh-snap/znap.zsh  # Start Znap
+
+# Theme
+znap source romkatv/powerlevel10k
+source $ZDOTDIR/.p10k.zsh
+
+# Auto complete
+autoload -Uz compinit
+zstyle ':completion:*' menu select
+zmodload zsh/complist
+_comp_options+=(globdots)
+
+# Plugins
+znap source ohmyzsh/ohmyzsh plugins/{cp,git,history,sudo,alias-finder,autojump,gnu-utils}
+znap source zsh-users/zsh-autosuggestions
+znap source zdharma/fast-syntax-highlighting
+
+# History
+HISTFILE="$ZDOTDIR/history"
+SAVEHIST=1000
+HISTSIZE=1000
+
+setopt INC_APPEND_HISTORY
+export HISTTIMEFORMAT="[%F %T] "
+setopt EXTENDED_HISTORY
+setopt HIST_FIND_NO_DUPS
+
+# Bind home, end and del to normal behaviour
+bindkey  "^[[H"   beginning-of-line
+bindkey  "^[[F"   end-of-line
+bindkey  "^[[3~"  delete-char
+
+# Load Aliases
+source $ZDOTDIR/alias.zsh
+
+# Distrobox run on host
+command_not_found_handle() {
+# don't run if not in a container
+  if [ ! -e /run/.containerenv ] && [ ! -e /.dockerenv ]; then
+    exit 127
+  fi
+  
+  distrobox-host-exec "${@}"
+}
+if [ -n "${ZSH_VERSION-}" ]; then
+  command_not_found_handler() {
+    command_not_found_handle "$@"
+ }
+fi
+
