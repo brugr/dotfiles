@@ -4,3 +4,4 @@ XDG_CACHE_HOME="$HOME/.cache"
 XDG_DATA_HOME="$HOME/.local/share"
 ZDOTDIR="$HOME/.config/zsh"
 EDITOR=nano
+LC_ALL=en_US.UTF-8
