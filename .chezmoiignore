@@ -1,0 +1,9 @@
+README.md
+LICENSE
+
+{{if eq .chezmoi.os "windows"}}
+.config/MangoHud
+.bash*
+.alias
+.profile
+{{end}}

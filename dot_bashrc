@@ -1,0 +1,9 @@
+# Load alias and profile
+source $HOME/.alias
+source $HOME/.profile
+
+# History control
+export HISTCONTROL=ignoreboth
+
+# Load starship
+eval "$(starship init bash)"
