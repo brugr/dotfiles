@@ -1,0 +1,11 @@
+[misc]
+disable = ["containers", "system"]
+cleanup = true
+
+[git]
+max_concurrency = 5
+repos = [
+    "C:\\Users\\Kevin\\AppData\\Roaming\\Mozilla\\Firefox\\Profiles\\fntlqbo6.default-release\\chrome\\lepton"
+]
+# pull_predefined = false
+# arguments = "--rebase --autostash"
