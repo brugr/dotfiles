@@ -145,9 +145,6 @@ symbol = "󱃾 "
 [lua]
 symbol = " "
 
-[maven]
-symbol = " "
-
 [memory_usage]
 symbol = "󰍛 "
 
